@@ -14,8 +14,9 @@ export default {
   },
   computed:{
   },
-
-  methods:{
+  mounted(){
+    // this.$store.dispatch('getAddress')
+    // this.$store.dispatch('getUserInfo')
   }
 }
 </script>
@@ -24,7 +25,7 @@ export default {
   #app{
     width: 100%;
     height: 100%;
-    position: relative;
+    background :#f5f5f5;
   }
    a{
       text-decoration: none;

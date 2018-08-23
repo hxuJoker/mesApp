@@ -1,7 +1,9 @@
 export default {
     latitude: 40.10038, // 纬度
     longitude: 116.36867, // 经度
-    address: {}, // 地址相关信息对象
+    address: {
+        name:'苏州市金鸡湖大道工业园区B402'
+    }, // 地址相关信息对象
     categorys:[
         {name:'slide1'},
         {name:'slide2'},

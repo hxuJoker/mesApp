@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import {Button} from 'mint-ui'
+
+//全局注册组件
+Vue.component(Button.name,Button) // <mt-button>
 
 Vue.config.productionTip = false
 

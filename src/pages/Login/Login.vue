@@ -95,7 +95,8 @@ export default {
         code:0,
         data:{
           name:this.name,
-          phone:this.phone
+          phone:this.phone,
+          _id:'654sfd87asd'
         }
       }
       if(this.loginWay){

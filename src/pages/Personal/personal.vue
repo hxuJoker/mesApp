@@ -4,7 +4,7 @@
       <HeaderTop title="我的"></HeaderTop>
       <section class="profile-number">
       <!-- 利用router-link实现到Login组件的跳转 -->
-        <router-link to="./login" class="profile-link">
+        <router-link :to="userInfo._id? '/userInfo':'/login'" class="profile-link">
           <div class="profile_image">
             <i class="iconfont icon-yonghuming"></i>
           </div>
@@ -91,7 +91,7 @@
         </a>
       </section>
       <section class="profile_my_order border-1px">
-        <!-- <mt-button type="danger" style="width: 100%" v-if="userInfo._id" @click="logout">退出登录</mt-button> -->
+        <mt-button type="danger" style="width: 100%" v-if="userInfo._id" @click="logout">退出登录</mt-button>
       </section>
     </section>
   </div>
@@ -99,6 +99,7 @@
 
 <script>
 import {mapState} from 'vuex';
+import {MessageBox,Toast} from 'mint-ui'
 import HeaderTop from '../../components/HeaderTop/HeaderTop.vue';
 
     export default {
@@ -112,6 +113,18 @@ import HeaderTop from '../../components/HeaderTop/HeaderTop.vue';
         },
         computed:{
           ...mapState(['userInfo'])
+        },
+        methods:{
+          logout(){
+            MessageBox.confirm('确认退出吗？').then(
+              action=>{
+                // this.$store.dispatch('logout')
+                this.$store.state.userInfo = {};
+                Toast('退出成功！')
+              },
+              action=>{}
+            )
+          }
         }
     }
 </script>
