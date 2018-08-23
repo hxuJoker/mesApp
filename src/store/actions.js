@@ -14,7 +14,8 @@ import {
 
 import {reqAddress} from '../api'
  
-export default {    
+export default {  
+    //异步获取  
     async getAddress({commit,state}){
     // 从state状态中获取到经纬度用来设置reqAddress的参数（看接口文档）
         const geohash = state.latitude + "," + state.longitude
@@ -25,5 +26,10 @@ export default {
             const address = result.data
             commit(RECEIVE_ADDRESS,{address})
         }
+    },
+
+    //同步获取
+    recordUser ({commit},userInfo){
+        commit(RECEIVE_USER_INFO,{userInfo})
     }
 }

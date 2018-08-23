@@ -15,7 +15,7 @@ export default {
         {name:'slide10'},
         {name:'slide11'},
         {name:'slide12'},
-        {name:'slide13'},
     ],
     shops:[],
+    userInfo:{},
 }

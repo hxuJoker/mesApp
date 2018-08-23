@@ -7,21 +7,14 @@
 
 <script>
 import FooterGuider from './components/FooterGuide/FooterGuider'
-import {mapActions,mapState} from 'vuex';
 export default {
   name: 'App',
   components:{
     FooterGuider
   },
   computed:{
-    ...mapState(['latitude']),
-    aa(){
-      const {latitude} = this
-    }
   },
-  mounted(){
-    this.aa;
-  },
+
   methods:{
   }
 }

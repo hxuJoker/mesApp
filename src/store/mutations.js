@@ -16,5 +16,9 @@ import {
 export default {
     [RECEIVE_ADDRESS] (state,{address}){
         state.address = address
-    }
+    },
+
+    [RECEIVE_USER_INFO] (state,{userInfo}){
+        state.userInfo = userInfo
+    },
 }

@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex';
 import AlertTip from "../../components/AlertTip/AlertTip.vue";
 import {reqSendCode,reqSmsLogin,reqPwdLogin} from '../../api'
 export default {
@@ -91,7 +92,11 @@ export default {
     //登录
     async login(){
       let result = {
-        code:0
+        code:0,
+        data:{
+          name:this.name,
+          phone:this.phone
+        }
       }
       if(this.loginWay){
         const {rightPhone,phone,code} = this;
@@ -125,10 +130,13 @@ export default {
       }
       if(result.code === 0){
         const user = result.data;
+        this.$store.dispatch('recordUser',user)
         this.$router.replace('/personal')
       }else{
-        this.showAlert(result.msg)
+        //显示新的图片验证码
         this.getCaptcha()
+        //显示错误提示
+        this.showAlert(result.msg)
       }
     },
     // 关闭警告框
