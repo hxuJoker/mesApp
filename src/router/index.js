@@ -8,6 +8,7 @@ import Login from '@/pages/Login/Login.vue'
 
 Vue.use(Router)
 
+
 export default new Router({
   routes: [
     {
