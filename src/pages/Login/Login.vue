@@ -13,7 +13,7 @@
           <div :class="{on: loginWay}">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-              <button :disabled="!rightPhone" class="get_verification" :class="{right_phone:rightPhone}" @click.prevent="getCode">{{computeTime>0 ? `(${computeTime}s)已发送` : '获取验证码'}}</button>
+              <button :disabled="!rightPhone" class="get_verification" :class="{right_phone:rightPhone}" @click.prevent="getCode">{{computeTime>0 ? `已发送(${computeTime}s)` : '获取验证码'}}</button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码" v-model="code">
@@ -31,15 +31,14 @@
               <section class="login_verification">
                 <input type="text" maxlength="8" placeholder="密码" v-if="showPwd" v-model="pwd">
                 <input type="password" maxlength="8" placeholder="密码" v-else v-model="pwd">
-                <div class="switch_button off" :class="showPwd?'on':'off'" @click="showPwd=!showPwd">
+                <div class="switch_button" :class="showPwd?'on':'off'" @click="showPwd=!showPwd">
                   <div class="switch_circle" :class="{right: showPwd}"></div>
-                  <span class="switch_text">{{showPwd ? 'abc' : '...'}}</span>
                 </div>
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
                 <!-- <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha" ref="captcha"> -->
-                <img class="get_verification" alt="captcha"  ref="captcha">
+                <img class="get_verification" src="./images/captcha.svg" alt="captcha"  ref="captcha" @click="getCaptcha">
               </section>
             </section>
           </div>
@@ -58,7 +57,7 @@
 
 <script>
 import AlertTip from "../../components/AlertTip/AlertTip.vue";
-
+import {reqSendCode,reqSmsLogin,reqPwdLogin} from '../../api'
 export default {
   components: {
     AlertTip
@@ -67,7 +66,7 @@ export default {
     return {
       loginWay: false, // true代表短信登陆, false代表密码
       phone: "", // 手机号
-      computeTime: 0,
+      computeTime: 0, //计时的时间
       showPwd: false, // 是否显示密码
       pwd: "",
       name: "", // 用户名
@@ -84,12 +83,61 @@ export default {
     }
   },
   methods: {
+    //封装验证文字
+    showAlert(alertText){
+      this.alertShow = true;
+      this.alertText = alertText;
+    },
+    //登录
+    async login(){
+      let result = {
+        code:0
+      }
+      if(this.loginWay){
+        const {rightPhone,phone,code} = this;
+        if(!rightPhone){
+          this.showAlert('手机号不正确')
+          return 
+        }else if(!code){
+          this.showAlert('验证码不正确')
+          return 
+        }
+        //异步发送ajax请求
+        // result = await reqSmsLogin(phone,code)
+      }else{
+        const {name,pwd,captcha} = this;
+        if(!name){
+          this.showAlert('用户名不正确')
+          return 
+        }else if(!pwd){
+          this.showAlert('密码不正确')
+          return 
+        }else if(!captcha){
+          this.showAlert('验证码不正确')
+          return 
+        }
+        // result = await reqPwdLogin({name,pwd,captcha})
+      }
+      if(this.computeTime){
+        this.computeTime = 0;
+        clearInterval(this.intervalId)
+        this.intervalId = undefined
+      }
+      if(result.code === 0){
+        const user = result.data;
+        this.$router.replace('/personal')
+      }else{
+        this.showAlert(result.msg)
+        this.getCaptcha()
+      }
+    },
     // 关闭警告框
     closeTip() {
       this.alertShow = false;
       this.alertText = "";
     },
-    async getCode() {
+    //获取短信验证码
+      async getCode() {
       // 如果当前没有计时!this.computeTime等于this.computeTime === 0
       if (!this.computeTime) {
         // 启动倒计时
@@ -103,187 +151,26 @@ export default {
         }, 1000);
       }
       // 发送ajax请求（向指定手机号发送验证码短信）
-      const result = await reqSendCode(this.phone);
-      if (result.code === 1) {
-        // 手机号验证失败
-        // 显示提示
-        this.showAlert(result.msg);
-        // 停止计时
-        if (this.computeTime) {
-          this.computeTime = 0;
-          clearInterval(this.intervalId);
-          this.intervalId = undefined;
-        }
-      }
+      // const result = await reqSendCode(this.phone);
+      // if(result.code === 1){
+      //   // 显示提示
+      //   this.showAlert(result.msg)
+      //    // 停止计时
+      //   if(this.computeTime){
+      //     this.computeTime = 0;
+      //     clearInterval(this.intervalId)
+      //     this.intervalId = undefined
+      //   }
+      // }
+    },
+    //获取图形验证码
+    getCaptcha(){
+      // this.$refs.captcha.src = 'http://localhost:4000/captcha?time='+Date.now();
     }
   }
 };
 </script>
 
 <style lang='less'>
-.loginContainer {
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  .loginInner {
-    padding-top: 60px;
-    width: 80%;
-    margin: 0 auto;
-    .login_header {
-      .login_logo {
-        font-size: 40px;
-        font-weight: bold;
-        color: #02a774;
-        text-align: center;
-      }
-      .login_header_title {
-        padding-top: 40px;
-        text-align: center;
-        a {
-          color: #333;
-          font-size: 14px;
-          padding-bottom: 4px;
-          &:first-child {
-            margin-right: 40px;
-          }
-          &.on {
-            color: #02a774;
-            font-weight: 700;
-            border-bottom: 2px solid #02a774;
-          }
-        }
-      }
-    }
-    .login_content {
-      form {
-        div {
-          display: none;
-          &.on {
-            display: block;
-          }
-          input {
-            width: 100%;
-            height: 100%;
-            padding-left: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            outline: 0;
-            font: 400 14px Arial;
-            &:focus {
-              border: 1px solid #02a774;
-            }
-          }
-          .login_message {
-            position: relative;
-            margin-top: 16px;
-            height: 48px;
-            font-size: 14px;
-            background: #fff;
-            .get_verification {
-              position: absolute;
-              top: 50%;
-              right: 10px;
-              transform: translateY(-50%);
-              border: 0;
-              color: #ccc;
-              font-size: 14px;
-              background: transparent;
-              &.right_phone {
-                color: black;
-              }
-            }
-          }
-          .login_verification {
-            position: relative;
-            margin-top: 16px;
-            height: 48px;
-            font-size: 14px;
-            background: #fff;
-            .switch_button {
-              font-size: 12px;
-              border: 1px solid #ddd;
-              border-radius: 8px;
-              transition: background-color 0.3s, border-color 0.3s;
-              padding: 0 6px;
-              width: 30px;
-              height: 16px;
-              line-height: 16px;
-              color: #fff;
-              position: absolute;
-              top: 50%;
-              right: 10px;
-              transform: translateY(-50%);
-              &.off {
-                background: #fff;
-                .switch_text {
-                  float: right;
-                  color: #ddd;
-                }
-              }
-              &.on {
-                background: #02a774;
-              }
-              .switch_circle {
-                position: absolute;
-                top: -1px;
-                left: -1px;
-                width: 16px;
-                height: 16px;
-                border: 1px solid #ddd;
-                border-radius: 50%;
-                background: #fff;
-                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s;
-                &.right {
-                  transform: translateX(30px);
-                }
-              }
-            }
-          }
-        }
-        .login_hint {
-          margin-top: 12px;
-          color: #999;
-          font-size: 14px;
-          line-height: 20px;
-          a {
-            color: #02a774;
-          }
-        }
-        .login_submit {
-          display: block;
-          width: 100%;
-          height: 42px;
-          margin-top: 30px;
-          border-radius: 4px;
-          background: #4cd96f;
-          color: #fff;
-          text-align: center;
-          font-size: 16px;
-          line-height: 42px;
-          border: 0;
-        }
-      }
-      .about_us {
-        display: block;
-        font-size: 12px;
-        margin-top: 20px;
-        text-align: center;
-        color: #999;
-      }
-    }
-    .go_back {
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      width: 30px;
-      height: 30px;
-      .iconfont {
-        font-size: 20px;
-        color: #999;
-      }
-    }
-  }
-}
+@import 'login.less';
 </style>
