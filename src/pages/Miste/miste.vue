@@ -13,7 +13,7 @@
             </router-link>
         </HeaderTop>
         <nav class="msite_nav">
-            <div class="swiper-container">
+            <div class="swiper-container" v-if="categorys.length">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" v-for="categorys in categorysArr">
                         <a href="javascript:" class="link_to_food" v-for="(category,index) in categorys" :key="index">
@@ -26,13 +26,14 @@
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
+            <img src="./images/msite_back.svg" alt="back" v-else>
         </nav>
         <div class="msite_shop_list">
             <div class="shop_header">
                 <i class="iconfont icon-single"></i>
                 <span class="shop_header_title">附近商家</span>
             </div>
-      <!-- <ShopList></ShopList> -->
+            <ShopList></ShopList>
         </div>
     </div>
 </template>
