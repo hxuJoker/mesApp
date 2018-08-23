@@ -17,4 +17,5 @@ export default {
         {name:'slide12'},
         {name:'slide13'},
     ],
+    shops:[],
 }
