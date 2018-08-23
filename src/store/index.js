@@ -10,13 +10,14 @@ import state from './state'
 import mutations from './mutations'
 import actions from './actions'
 import getters from './getters'
+import { Store } from 'vuex';
 // 一定要声明使用插件
 Vue.use(Vuex)
 
 
-export default {
+export default new Vuex.Store({
   state,
   mutations,
   actions,
   getters
-}
+})
