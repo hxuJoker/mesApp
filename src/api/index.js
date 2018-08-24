@@ -40,6 +40,9 @@ export const reqUserInfo = () => ajax(BASE_URL + '/userinfo')
  * 请求登出
  */
 export const reqLogout = () => ajax(BASE_URL + '/logout')
+
+
+
 /**
  * 获取商家信息(下列请求由mock拦截并返回 不需要代理)
  */

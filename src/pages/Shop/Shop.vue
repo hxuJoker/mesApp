@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ShopHeader/>
+        <ShopHeader></ShopHeader>
         <div class="tab">
             <div class="tab-item">
                 <router-link to="/shop/goods">点餐</router-link>
@@ -13,7 +13,7 @@
             </div>
         </div>
         <keep-alive>
-            <router-view/>
+            <router-view></router-view>
         </keep-alive>    
     </div>
 </template>
@@ -21,6 +21,9 @@
 <script>
     import ShopHeader from '../../components/ShopHeader/ShopHeader.vue'
     export default {
+        mounted(){
+            this.$store.dispatch('getShopInfo')
+        },
         components:{
             ShopHeader
         }

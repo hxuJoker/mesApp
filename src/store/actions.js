@@ -12,7 +12,7 @@ import {
     CLEAR_CART,
     RECEIVE_SEARCH_SHOPS} from './mutations-types'
 
-import {reqAddress,reqUserInfo,reqLogout} from '../api'
+import {reqAddress,reqUserInfo,reqLogout,reqShopGoods,reqShopInfo,reqShopRatings} from '../api'
  
 export default {  
     //异步获取  
@@ -48,5 +48,30 @@ export default {
         if(result.code === 0){
             commit(RESET_USER_INFO)
         }
-    }
+    },
+    //异步获取商家信息
+    async getShopInfo ({commit}){
+        const result = await reqShopInfo();
+        if(result.code === 0){
+            const info = result.data
+            commit(RECEIVE_INFO,{info})
+        }
+    },
+    //异步获取商家评论列表
+    async getShopRatings ({commit}){
+        const result = await reqShopRatings();
+        if(result.code === 0){
+            const ratings = result.data
+            commit(RECEIVE_INFO,{ratings})
+        }
+    },
+    //异步获取商家列表
+    async getShopGoods ({commit},callback){
+        const result = await reqShopGoods();
+        if(result.code === 0){
+            const goods = result.data
+            commit(RECEIVE_INFO,{goods})
+            callback  && callback()
+        }
+    },
 }

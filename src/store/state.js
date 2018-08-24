@@ -20,4 +20,7 @@ export default {
     ],
     shops:[],
     userInfo:{},
+    goods:[],
+    ratings:[],
+    info:{}
 }
