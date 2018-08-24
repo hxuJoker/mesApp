@@ -25,7 +25,7 @@ export default {
     [RESET_USER_INFO] (state){
         state.userInfo = {}
     },
-
+    //利用mock来模拟数据
     [RECEIVE_GOODS] (state,{goods}){
         state.goods = goods
     },
