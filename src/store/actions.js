@@ -62,7 +62,7 @@ export default {
         const result = await reqShopRatings();
         if(result.code === 0){
             const ratings = result.data
-            commit(RECEIVE_INFO,{ratings})
+            commit(RECEIVE_RATINGS,{ratings})
         }
     },
     //异步获取商家列表
@@ -70,7 +70,7 @@ export default {
         const result = await reqShopGoods();
         if(result.code === 0){
             const goods = result.data
-            commit(RECEIVE_INFO,{goods})
+            commit(RECEIVE_GOODS,{goods})
             callback  && callback()
         }
     },
