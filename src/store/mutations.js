@@ -25,4 +25,14 @@ export default {
     [RESET_USER_INFO] (state){
         state.userInfo = {}
     },
+
+    [RECEIVE_GOODS] (state,{goods}){
+        state.goods = goods
+    },
+    [RECEIVE_INFO] (state,{info}){
+        state.info = info
+    },
+    [RECEIVE_RATINGS] (state,{ratings}){
+        state.ratings = ratings
+    },
 }
