@@ -12,4 +12,7 @@ Mock.mock('/ratings',{code:0,data:data.ratings})
 //返回info的接口
 Mock.mock('/info',{code:0,data:data.info})
 
+//返回地址的接口
+Mock.mock('/address',{code:0,data:data.address})
+
 // export default ??? 不需要向外暴露任何接口
