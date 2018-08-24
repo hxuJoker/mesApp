@@ -15,7 +15,7 @@ export default {
   computed:{
   },
   mounted(){
-    // this.$store.dispatch('getAddress')
+    this.$store.dispatch('getAddress')
     // this.$store.dispatch('getUserInfo')
   }
 }

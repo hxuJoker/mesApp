@@ -16,17 +16,17 @@ import {reqAddress,reqUserInfo,reqLogout,reqShopGoods,reqShopInfo,reqShopRatings
  
 export default {  
     //异步获取  
-    async getAddress({commit,state}){
-    // 从state状态中获取到经纬度用来设置reqAddress的参数（看接口文档）
-        const geohash = state.latitude + "," + state.longitude
-        // 1. 发送异步ajax请求
-        const result  = await reqAddress(geohash)
-        // 2. 提交一个mutation
-        if(result.code === 0){
-            const address = result.data
-            commit(RECEIVE_ADDRESS,{address})
-        }
-    },
+    // async getAddress({commit,state}){
+    // // 从state状态中获取到经纬度用来设置reqAddress的参数（看接口文档）
+    //     const geohash = state.latitude + "," + state.longitude
+    //     // 1. 发送异步ajax请求
+    //     const result  = await reqAddress(geohash)
+    //     // 2. 提交一个mutation
+    //     if(result.code === 0){
+    //         const address = result.data
+    //         commit(RECEIVE_ADDRESS,{address})
+    //     }
+    // },
 
     //同步获取
     recordUser ({commit},userInfo){
@@ -34,21 +34,25 @@ export default {
     },
 
     //异步获取用户信息
-    async getUserInfo({commit}){
-        const result = await reqUserInfo();
-        if(result.code === 0){
-            const userInfo = result.data;
-            commit(RECEIVE_USER_INFO,{userInfo})
-        }
-    },
+    // async getUserInfo({commit}){
+    //     const result = await reqUserInfo();
+    //     if(result.code === 0){
+    //         const userInfo = result.data;
+    //         commit(RECEIVE_USER_INFO,{userInfo})
+    //     }
+    // },
 
     //异步退出
-    async logout ({commit}){
-        const result = await reqLogout();
-        if(result.code === 0){
-            commit(RESET_USER_INFO)
-        }
-    },
+    // async logout ({commit}){
+    //     const result = await reqLogout();
+    //     if(result.code === 0){
+    //         commit(RESET_USER_INFO)
+    //     }
+    // },
+
+
+//利用mock来模拟数据
+
     //异步获取商家信息
     async getShopInfo ({commit}){
         const result = await reqShopInfo();
@@ -72,6 +76,14 @@ export default {
             const goods = result.data
             commit(RECEIVE_GOODS,{goods})
             callback  && callback()
+        }
+    },
+    //异步获取地址信息
+    async getAddress ({commit}) {
+        const result =await reqAddress()
+        if(result.code === 0){
+            const address = result.data;
+            commit(RECEIVE_ADDRESS,{address})
         }
     },
 }
