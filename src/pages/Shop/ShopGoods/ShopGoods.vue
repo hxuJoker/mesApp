@@ -21,7 +21,7 @@
             <h1 class="title">{{good.name}}</h1>
             <ul>
               <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods"
-                  :key="index" @click="showFood(food)">
+                  :key="index">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -36,33 +36,24 @@
                     <span class="now">￥{{food.price}}</span>
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
-                  <div class="cartcontrol-wrapper">
-                    <!-- <CartControl :food="food"/> -->
-                  </div>
                 </div>
               </li>
             </ul>
           </li>
         </ul>
       </div>
-      <!-- <ShopCart /> -->
     </div>
-    <!-- <Food :food="food" ref="food"/> -->
   </div>
 </template>
 <script>
 import BScroll from 'better-scroll'
 import {mapState} from 'vuex'
-// import CartControl from '../../../components/CartControl/CartControl.vue'
-// import Food from '../../../components/Food/Food.vue'
-// import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 
 export default {
   data () {
     return {
       scrollY: 0, // 右侧 Y 轴滑动的坐标(越往下数值越小)
       tops: [], // 包含右侧所有分类小列表的 top 值
-      food: {} // 需要显示的food
     }
   },
   mounted () {
@@ -139,13 +130,6 @@ export default {
       // 平滑滑动右侧列表 better-scroll里的方法
       this.foodsScroll.scrollTo(0, -scrollY, 300)
     },
-    // 显示点击的food
-    showFood (food) {
-      // 设置要传递给food组件的数据
-      // this.food = food
-      // 显示food组件 (在父组件中调用子组件对象的方法)
-      // this.$refs.food.toggleShow()
-    }
   },
   components: {
     // CartControl,
@@ -185,21 +169,21 @@ export default {
             border: none;
           }
         }
-        .icon{
-          display: inline-block;
-          vertical-align: top;
-          width: 12px;
-          height: 12px;
-          margin-right: 2px;
-          background-size: 12px 12px;
-          background-repeat: no-repeat;
-        }
         .text{
           display: table-cell;
           width: 56px;
           vertical-align: middle;
           border-bottom:1px solid rgba(7, 17, 27, 0.1);
           font-size: 12px;
+          .icon{
+            display: inline-block;
+            vertical-align: top;
+            width: 12px;
+            height: 12px;
+            margin-right: 2px;
+            background-size: 12px 12px;
+            background-repeat: no-repeat;
+          }
         }
       }
     }
@@ -235,16 +219,16 @@ export default {
             line-height: 14px;
             font-size: 14px;
             color: rgb(7, 17, 27);
-            .desc, .extra{
+          }
+          .desc{
               line-height: 10px;
               font-size: 10px;
               color: rgb(147, 153, 159);
             }
-            .desc{
-              line-height: 12px;
-              margin-bottom: 8px;
-            }
             .extra{
+              line-height: 10px;
+              font-size: 10px;
+              color: rgb(147, 153, 159);
               .count{
                 margin-right: 12px;
               }
@@ -268,7 +252,6 @@ export default {
               right: 0;
               bottom: 12px
             }
-          }
         }
       }
     }
