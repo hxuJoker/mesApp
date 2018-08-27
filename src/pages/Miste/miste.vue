@@ -18,9 +18,9 @@
                     <div class="swiper-slide" v-for="categorys in categorysArr">
                         <a href="javascript:" class="link_to_food" v-for="(category,index) in categorys" :key="index">
                             <div class="food_container">
-                                <!-- <img :src="baseImageUrl+data.image_url"> -->
+                                <img :src="baseImageUrl+category.image_url">
                             </div>
-                            <span>{{category.name}}</span>
+                            <span>{{category.title}}</span>
                         </a>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ import {mapState} from 'vuex'
         },
         data() {
             return {
-                
+                baseImageUrl: 'https://fuss10.elemecdn.com'
             }
         },
         computed:{
@@ -83,33 +83,27 @@ import {mapState} from 'vuex'
                 return arr
             }
         },
-        // watch:{
-        //     categorys(value){ // categorys数组中有数据了 但界面还没有异步更新
-        //         // 在修改数据之后立即使用它，然后等待 DOM 更新。
-        //         this.$nextTick(()=>{
-        //              // 一旦完成界面更新, 立即执行回调
-        //             //创建一个Swiper对象，来实现轮播
-        //             new Swiper('.swiper-container',{
-        //                 loop:true,
-        //                 //分页器
-        //                 pagination: {
-        //                     el: '.swiper-pagination',
-        //                     clickable: true
-        //                 }
-        //             })
-        //         })
-        //     }
-        // },
+        watch:{
+            categorys(value){ // categorys数组中有数据了 但界面还没有异步更新
+                // 在修改数据之后立即使用它，然后等待 DOM 更新。
+                this.$nextTick(()=>{
+                     // 一旦完成界面更新, 立即执行回调
+                    //创建一个Swiper对象，来实现轮播
+                    new Swiper('.swiper-container',{
+                        loop:true,
+                        //分页器
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true
+                        }
+                    })
+                })
+            }
+        },
         // 注意要在页面加载完成之后（mounted）再进行swiper的初始化
         mounted(){
-            new Swiper('.swiper-container',{
-                loop:true,
-                //分页器
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true
-                }
-            })
+            this.$store.dispatch('getCategorys')
+            this.$store.dispatch('getShops')
         },
     }
 </script>

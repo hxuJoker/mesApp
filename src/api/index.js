@@ -59,3 +59,15 @@ export const reqShopGoods = () => ajax('/goods')
  * 获取地址信息
  */
 export const reqAddress = () =>ajax('/address')
+/**
+ * 获取轮播信息
+ */
+export const reqCategorys = ()=>ajax('/categorys')
+/**
+ * 获取商家信息
+ */
+export const reqShops = ()=>ajax('/shops')
+/**
+ * 获取用户信息
+ */
+export const reqUserInfo = ()=>ajax('/userinfo')

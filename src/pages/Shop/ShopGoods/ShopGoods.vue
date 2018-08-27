@@ -226,6 +226,7 @@ export default {
               color: rgb(147, 153, 159);
             }
             .extra{
+              margin-top: 10px;
               line-height: 10px;
               font-size: 10px;
               color: rgb(147, 153, 159);

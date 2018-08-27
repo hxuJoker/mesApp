@@ -16,7 +16,7 @@ export default {
   },
   mounted(){
     this.$store.dispatch('getAddress')
-    // this.$store.dispatch('getUserInfo')
+    this.$store.dispatch('getUserInfo')
   }
 }
 </script>
@@ -33,5 +33,8 @@ export default {
     ul,li{
       list-style: none;
       padding: 0
+    }
+    h4,p{
+      margin: 0
     }
 </style>
