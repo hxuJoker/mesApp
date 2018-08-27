@@ -7,5 +7,7 @@ export default {
     userInfo:{},
     goods:[],
     ratings:[],
-    info:{}
+    info:{},
+    cartFoods:[],//购物车中食物的列表
+    
 }
