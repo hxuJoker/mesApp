@@ -90,6 +90,13 @@ export default {
         scrollX: true // 水平滑动
       });
     }
+  },
+   watch: {
+    info () { // 刷新流程--> 更新数据
+      this.$nextTick(() => {
+        this._initScroll()
+      })
+    }
   }
 };
 </script>
