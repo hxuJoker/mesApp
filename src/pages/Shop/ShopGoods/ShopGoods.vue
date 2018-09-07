@@ -21,7 +21,7 @@
             <h1 class="title">{{good.name}}</h1>
             <ul>
               <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods"
-                  :key="index">
+                  :key="index" @click='showFood(food)'>
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -36,22 +36,31 @@
                     <span class="now">￥{{food.price}}</span>
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
+                  <div class="cartcontrol-wrapper">
+                      <CartControl :food='food'></CartControl> 
+                  </div>
                 </div>
               </li>
             </ul>
           </li>
         </ul>
       </div>
+      <ShopCart />
     </div>
+    <Food :food ='food' ref="food"></Food>
   </div>
 </template>
 <script>
 import BScroll from 'better-scroll'
 import {mapState} from 'vuex'
+import CartControl from '../../../components/CartControl/CartControl.vue'
+import Food from '../../../components/Food/Food.vue'
+import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 
 export default {
   data () {
     return {
+      food:{},//需要显示的food
       scrollY: 0, // 右侧 Y 轴滑动的坐标(越往下数值越小)
       tops: [], // 包含右侧所有分类小列表的 top 值
     }
@@ -120,7 +129,6 @@ export default {
       this.tops = tops
     },
     clickMenuItem (index) {
-      // console.log(index)
       // 使用右侧列表滑动到对应的位置
 
       // 得到目标位置的scrollY
@@ -130,11 +138,18 @@ export default {
       // 平滑滑动右侧列表 better-scroll里的方法
       this.foodsScroll.scrollTo(0, -scrollY, 300)
     },
+    //显示点击的food
+    showFood(food){
+      //设置food
+      this.food = food
+      //显示food组件(在父组件中调用子组件对象的方法)
+      this.$refs.food.toggleShow()
+    }
   },
   components: {
-    // CartControl,
-    // Food,
-    // ShopCart
+    CartControl,
+    Food,
+    ShopCart
   }
 }
 </script>
@@ -143,7 +158,7 @@ export default {
 .goods{
     display: flex;
     position: absolute;
-    top: 195px;
+    top: 223px;
     bottom: 46px;
     width: 100%;
     background: #fff;
@@ -201,7 +216,7 @@ export default {
       .food-item{
         display: flex;
         margin: 18px;
-        padding-bottom: 18px;
+        padding-bottom: 10px;
         border-bottom:1px solid rgba(7, 17, 27, 0.1);
         &:last-child{
           margin-bottom: 0;
@@ -212,6 +227,7 @@ export default {
           margin-right: 10px;
         }
         .content{
+          position: relative;
           flex: 1;
           .name{
             margin: 2px 0 8px 0;
@@ -226,6 +242,7 @@ export default {
               color: rgb(147, 153, 159);
             }
             .extra{
+              margin-top: 10px;
               line-height: 10px;
               font-size: 10px;
               color: rgb(147, 153, 159);
@@ -235,7 +252,8 @@ export default {
             }
             .price{
               font-weight: 700;
-              line-height: 24px;
+              line-height: 15px;
+              margin-top: 10px;
               .now{
                 margin-right: 8px;
                 font-size: 14px;
@@ -250,7 +268,7 @@ export default {
             .cartcontrol-wrapper{
               position: absolute;
               right: 0;
-              bottom: 12px
+              bottom: -15px
             }
         }
       }

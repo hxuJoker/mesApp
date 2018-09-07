@@ -4,37 +4,36 @@
       <li @click="$router.push('/shop')" class="shop_li border-1px" v-for="(shop,index) in shops" :key="index">
         <a>
           <div class="shop_left">
-            <!-- <img class="shop_img" :src="baseImgUrl + shop.image_path"> -->
+            <img class="shop_img" :src="shop.image_path">
           </div>
           <div class="shop_right">
             <section class="shop_detail_header">
-              <!-- <h4 class="shop_title ellipsis">{{shop.name}}</h4> -->
+              <h4 class="shop_title ellipsis">{{shop.name}}</h4>
               <ul class="shop_detail_ul">
-                <!-- <li class="supports" v-for="(support, index) in shop.supports" :key="index">
+                <li class="supports" v-for="(support, index) in shop.supports" :key="index">
                   {{support.icon_name}}
-                </li> -->
+                </li>
               </ul>
             </section>
             <section class="shop_rating_order">
               <section class="shop_rating_order_left">
-                <!-- <Star :score="shop.rating" :size="24"></Star> -->
-                <Star :score="3.6" :size="24"></Star>
+                <Star :score="shop.rating" :size="24"></Star>
                 <div class="rating_section">
-                  <!-- {{shop.rating}} -->
+                  {{shop.rating}}
                 </div>
                 <div class="order_section">
-                  <!-- 月售{{shop.recent_order_num}}单 -->
+                  月售{{shop.recent_order_num}}单
                 </div>
               </section>
               <section class="shop_rating_order_right">
-                <!-- <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span> -->
+                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
               </section>
             </section>
             <section class="shop_distance">
               <p class="shop_delivery_msg">
-                <!-- <span>¥{{shop.float_minimum_order_amount}}起送</span> -->
+                <span>¥{{shop.float_minimum_order_amount}}起送</span>
                 <span class="segmentation">/</span>
-                <!-- <span>配送费约¥{{shop.float_delivery_fee}}</span> -->
+                <span>配送费约¥{{shop.float_delivery_fee}}</span>
               </p>
             </section>
           </div>
@@ -52,8 +51,12 @@
 
 <script>
 import {mapState} from 'vuex';
-import Star from  '../Star/Star.vue'
+import Star from  '../Star/star.vue'
 export default {
+  data() {
+    return {
+    }
+  },
   computed:{
     ...mapState(['shops'])
   },
@@ -65,13 +68,16 @@ export default {
 
 <style lang='less'>
 .shop_container {
+  float: left;
   margin-bottom: 50px;
   .shop_list {
+    float: left;
     .shop_li {
+      float: left;
       border-bottom: 1px solid #f1f1f1;
       width: 100%;
       a {
-        // clearFix()
+        float: left;
         display: block;
         box-sizing: border-box;
         padding: 15px 8px;
@@ -93,6 +99,7 @@ export default {
           width: 77%;
           .shop_detail_header {
             width: 100%;
+            float: left;
             .shop_title {
               float: left;
               width: 200px;
@@ -115,6 +122,7 @@ export default {
             }
           }
           .shop_rating_order {
+            float: left;
             width: 100%;
             margin-top: 18px;
             margin-bottom: 8px;
@@ -144,30 +152,31 @@ export default {
                 font-size: 12px;
                 padding: 1px;
                 border-radius: 2px;
-                // .delivery_left
-                //     color #fff
-                //     margin-right -10px
-                //     background-color #02a774
-                //     border 1px solid #02a774
+                .delivery_left{
+                  color: #fff;
+                  margin-right :-10px;
+                  background-color: #02a774;
+                  border: 1px solid #02a774;
+                }
                 .delivery_right {
                   color: #02a774;
                   border: 1px solid #02a774;
                 }
               }
-
-              .shop_distance {
-                //clearFix()
-                width: 100%;
-                font-size: 12px;
-                .shop_delivery_msg {
-                  float: left;
-                  transform-origin: 0;
-                  transform: scale(0.9);
-                  color: #666;
-                  .segmentation {
-                    color: #ccc;
-                  }
-                }
+            }
+          }
+          .shop_distance {
+            clear: both;
+            float: left;
+            width: 100%;
+            font-size: 12px;
+            .shop_delivery_msg {
+              float: left;
+              transform-origin: 0;
+              transform: scale(0.9);
+              color: #666;
+              .segmentation {
+                color: #ccc;
               }
             }
           }

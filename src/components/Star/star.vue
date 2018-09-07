@@ -33,9 +33,10 @@
                     starArr.push(CLASS_HALF)
                 }
                 // 向starArr中添加n个CLASS_OFF
-                while(starArr<5){
+                while(starArr.length<5){
                     starArr.push(CLASS_OFF)
                 }
+                return starArr
             }
         }
     }

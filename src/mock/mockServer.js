@@ -15,4 +15,13 @@ Mock.mock('/info',{code:0,data:data.info})
 //返回地址的接口
 Mock.mock('/address',{code:0,data:data.address})
 
+//返回轮播信息
+Mock.mock('/categorys',{code:0,data:data.categorys})
+
+//返回商家列表
+Mock.mock('/shops',{code:0,data:data.shops})
+
+//返回用户信息
+Mock.mock('/userinfo',{code:0,data:data.userInfo})
+
 // export default ??? 不需要向外暴露任何接口
