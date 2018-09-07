@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import HeaderTop from "../../components/HeaderTop/HeaderTop.vue";
 
 export default {
@@ -41,6 +42,9 @@ export default {
         imgBaseUrl: 'http://cangdu.org:8001/img/',
         noSearchShops: false
     };
+  },
+  computed: {
+    ...mapState(['searchShops'])
   },
   methods:{
       search () {

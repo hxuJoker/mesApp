@@ -8,6 +8,7 @@ export default {
     goods:[],
     ratings:[],
     info:{},
+    searchShops:[],
     cartFoods:[],//购物车中食物的列表
     
 }

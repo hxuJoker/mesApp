@@ -1,5 +1,4 @@
 <template>
-    <div>
     <section class="order">
       <HeaderTop title="订单列表"></HeaderTop>
       <section class="order_no_login">
@@ -10,7 +9,6 @@
         </router-link>
       </section>
     </section>
-  </div>
 </template>
 
 <script>
